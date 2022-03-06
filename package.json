@@ -1,7 +1,7 @@
 {
-  "name": "@editorjs/table",
+  "name": "editorjs-table-border-toggle",
   "description": "Table for Editor.js",
-  "version": "2.0.1",
+  "version": "2.0.1-with-border",
   "license": "MIT",
   "main": "./dist/table.js",
   "scripts": {

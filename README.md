@@ -9,12 +9,12 @@ The Table Block for the [Editor.js](https://editorjs.io). Finally improved.
 Get the package
 
 ```shell
-npm i --save @editorjs/table
+npm i --save editorjs-table-border-toggle
 ```
 or
 
 ```shell
-yarn add @editorjs/table
+yarn add editorjs-table-border-toggle
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ yarn add @editorjs/table
 Add a new Tool to the `tools` property of the Editor.js initial config.
 
 ```javascript
-import Table from '@editorjs/table';
+import Table from 'editorjs-table-border-toggle';
 
 var editor = EditorJS({
   tools: {
@@ -62,6 +62,7 @@ This Tool returns `data` in the following format
 | Field          | Type         | Description           |
 | -------------- | ------------ | ----------------------------------------- |
 | `withHeadings` | `boolean`    | Uses the first line as headings |
+| `withBorders` | `boolean`     | Toggles between table border  |
 | `content`      | `string[][]` | two-dimensional array with table contents |
 
 ```json
