@@ -7,6 +7,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development --watch",
+    "start": "webpack serve --open",
     "lint": "eslint -c ./.eslintrc --ext .js --fix ."
   },
   "repository": "https://github.com/editor-js/table",
@@ -22,6 +23,7 @@
     "editorjs"
   ],
   "devDependencies": {
+    "@webpack-cli/serve": "^1.6.1",
     "autoprefixer": "^9.3.1",
     "css-loader": "^1.0.0",
     "cssnano": "^4.1.7",
@@ -34,6 +36,7 @@
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
     "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
   }
 }

@@ -2,6 +2,9 @@ import Table from './table';
 import tableIcon from './img/tableIcon.svg';
 import withHeadings from './img/with-headings.svg';
 import withoutHeadings from './img/without-headings.svg';
+import withBorders from './img/with-borders.svg';
+import withoutBorders from './img/without-borders.svg';
+
 import * as $ from './utils/dom';
 
 /**
@@ -19,6 +22,7 @@ import * as $ from './utils/dom';
 /**
  * @typedef {object} TableData - object with the data transferred to form a table
  * @property {boolean} withHeading - setting to use cells of the first row as headings
+ * @property {boolean} withBorder - setting to use select if table is bodered
  * @property {string[][]} content - two-dimensional array which contains table content
  */
 
@@ -58,6 +62,7 @@ export default class TableBlock {
     this.readOnly = readOnly;
     this.data = {
       withHeadings: data && data.withHeadings ? data.withHeadings : false,
+      withBorders: data && data.withBorders ? data.withBorders : false,
       content: data && data.content ? data.content : []
     };
     this.config = config;
@@ -115,31 +120,50 @@ export default class TableBlock {
   renderSettings() {
     const wrapper = $.make('div', TableBlock.CSS.settingsWrapper);
 
-    const tunes = [ {
+    const tunes = [{
       name: this.api.i18n.t('With headings'),
       icon: withHeadings,
       isActive: this.data.withHeadings,
       setTune: () => {
         this.data.withHeadings = true;
-      }
+      },
+      type: "Heading"
     }, {
       name: this.api.i18n.t('Without headings'),
       icon: withoutHeadings,
       isActive: !this.data.withHeadings,
       setTune: () => {
         this.data.withHeadings = false;
-      }
-    } ];
+      },
+      type: "Heading"
+    }, {
+      name: this.api.i18n.t('With borders'),
+      icon: withBorders,
+      isActive: this.data.withBorders,
+      setTune: () => {
+        this.data.withBorders = true;
+      },
+      type: "Border"
+    }, {
+      name: this.api.i18n.t('Without borders'),
+      icon: withoutBorders,
+      isActive: !this.data.withBorders,
+      setTune: () => {
+        this.data.withBorders = false;
+      },
+      type: "Border"
+    }];
 
     tunes.forEach((tune) => {
       let tuneButton = $.make('div', this.api.styles.settingsButton);
+      tune.button = tuneButton;
 
       if (tune.isActive) {
         tuneButton.classList.add(this.api.styles.settingsButtonActive);
       }
 
       tuneButton.innerHTML = tune.icon;
-      tuneButton.addEventListener('click', () => this.toggleTune(tune, tuneButton));
+      tuneButton.addEventListener('click', () => this.toggleTune(tune, tunes));
 
       this.api.tooltip.onHover(tuneButton, tune.name, {
         placement: 'top',
@@ -162,6 +186,7 @@ export default class TableBlock {
 
     let result = {
       withHeadings: this.data.withHeadings,
+      withBorders: this.data.withBorders,
       content: tableContent
     };
 
@@ -174,10 +199,12 @@ export default class TableBlock {
    *
    * @param {Tune} tune - one of the table settings
    * @param {HTMLElement} tuneButton - DOM element of the tune
+   * @param {Array<Tune>} tunes - list of tunes
    * @returns {void}
    */
-  toggleTune(tune, tuneButton) {
-    const buttons = tuneButton.parentNode.querySelectorAll('.' + this.api.styles.settingsButton);
+  toggleTune(tune, tunes) {
+    const buttons = tunes.filter(t => t.type === tune.type).map(t => t.button);
+    // tune.button.parentNode.querySelectorAll('.' + this.api.styles.settingsButton);
 
     // Clear other buttons
     Array.from(buttons).forEach((button) =>
@@ -185,7 +212,7 @@ export default class TableBlock {
     );
 
     // Mark active button
-    tuneButton.classList.toggle(this.api.styles.settingsButtonActive);
+    tune.button.classList.toggle(this.api.styles.settingsButtonActive);
     tune.setTune();
 
     this.table.setHeadingsSetting(this.data.withHeadings);

@@ -24,5 +24,8 @@ module.exports = {
         loader: 'svg-inline-loader?removeSVGTagAttrs=false'
       }
     ]
-  }
+  },
+  devServer: {
+    static: './',
+  },
 };
