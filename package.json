@@ -10,10 +10,10 @@
     "start": "webpack serve --open",
     "lint": "eslint -c ./.eslintrc --ext .js --fix ."
   },
-  "repository": "https://github.com/editor-js/table",
+  "repository": "https://github.com/Chipserver/table",
   "author": {
-    "name": "CodeX Team",
-    "email": "team@ifmo.su"
+    "name": "Anant Sharma",
+    "email": "anantatnet@gmail.com"
   },
   "keywords": [
     "codex",
